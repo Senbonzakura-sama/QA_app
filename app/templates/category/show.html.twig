@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.category_details'|trans({'%id%': category.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center mt-4" style="width: 100%;">
+            <!-- Lewy blok -->
+            <div style="flex: 1;">
+                <h1 class="text-left" style="font-size: 20px"></h1>
+            </div>
+
+            <!-- Środkowy blok -->
+            <div style="flex: 2;">
+                <h1 class="text-center">{{ 'title.category_details'|trans }}: {{ category.title }}</h1>
+            </div>
+
+            <!-- Prawy blok -->
+            <div style="flex: 1;">
+            </div>
+        </div>
+    </div>
+
+    {% if pagination is defined and pagination.items|length %}
+        <div class="table-responsive mt-4">
+            <table class="table table-striped" style="width: 70%; margin: 0 auto;">
+                <thead>
+                <tr>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'question.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'question.createdAt') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'question.updatedAt') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'question.title') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for question in pagination.items %}
+                    <tr>
+                        <td>{{ question.id }}</td>
+                        <td>{{ question.createdAt|format_date('long') }}</td>
+                        <td>{{ question.updatedAt|format_date('long') }}</td>
+                        <td>{{ question.title }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div style="display: flex; justify-content: center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% else %}
+        <div class="text-center">{{ 'question.no_question'|trans }}</div>
+    {% endif %}
+
+{% endblock %}

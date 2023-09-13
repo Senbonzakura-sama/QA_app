@@ -1,0 +1,32 @@
+/* navbar.css */
+
+/* Stylizacja paska nawigacji */
+.navbar {
+    background-color: rgba(132, 147, 234, 0.7);
+    color: #fff; /* Kolor tekstu */
+    padding-left: 20px; /* Margines od lewej strony */
+
+}
+
+.navbar-brand {
+    font-size: 28px; /* Zwiększenie rozmiaru czcionki dla tytułu */
+    font-weight: bold; /* Pogrubienie tytułu */
+}
+
+.nav-item.nav-link {
+    color: #000000; /* Kolor linków nawigacyjnych */
+}
+
+.nav-item.nav-link:hover {
+    color: #525050; /* Kolor linków nawigacyjnych po najechaniu myszką */
+}
+
+/* Stylizacja sekcji logowania/rejestracji */
+.log-register {
+    display: flex;
+    align-items: center;
+}
+
+.login-text {
+    margin-right: 15px;
+}

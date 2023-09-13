@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.mark_as_best'|trans({'%id%': answer.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.mark_as_best'|trans({'%id%': answer.id|default('')}) }}</h1>
+    <div>
+        <a id="back" href="{{ url('question_show', {id: answer.question.id}) }}" class="btn btn-outline-secondary">
+            {{ 'action.back_to_list'|trans }}
+        </a>
+    </div>
+    <div id="form1">
+        {{ form_start(form, { method: 'PUT', action: url('answer_best', {id: answer.id}) }) }}
+        {{ form_widget(form) }}
+        <div id="save">
+            <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-outline-success" />
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

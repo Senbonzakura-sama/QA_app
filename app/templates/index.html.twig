@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'Forum Q&A' }}
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5"> {# Dodaj klasę "mt-5" dla odstępu od góry #}
+        <h1 class="text-center">Witaj w mojej aplikacji Q&A!</h1> {# Dodaj klasę "text-center" dla wyśrodkowania #}
+        <p>To forum zostało stworzone w frameworku Symfony.</p>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <p> Jako admin swobodnie możesz edytować, dodawać kategorie, tagi, pytania oraz odpowiedzi. Dodatkowo
+        {% endif %}
+
+                {% if is_granted('ROLE_USER') %}
+                    {# Dodaj tutaj treść dla zalogowanych użytkowników. #}
+                {% endif %}
+
+        <h2>Funkcje i możliwości aplikacji:</h2>
+        <ul>
+            <li>Aplikacja typu „Q&A” dostatecznie spełnia różnorodne wymagania.</li>
+            <li>Użytkownicy to administratorzy i zalogowani użytkownicy.</li>
+            <li>CRUD dla pytań oraz CRUD dla kategorii.</li>
+            <li>Wyświetlanie listy pytań w ramach kategorii.</li>
+            <li>Sortowanie pytań od najnowszego do najstarszego z paginacją.</li>
+            <li>Administratorzy mogą zarządzać swoim profilem, w tym zmieniać hasło i email.</li>
+            <li>Zalogowani użytkownicy mogą dodawać pytania, odpowiedzi, kategorie oraz tagi</li>
+            <li>Administratorzy mają kontrolę nad odpowiedziami, mogą je usuwać i oznaczać jako najlepsze.</li>
+        </ul>
+    </div>
+{% endblock %}

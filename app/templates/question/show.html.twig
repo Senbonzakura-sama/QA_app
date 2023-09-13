@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.question_details'|trans({'%id%': question.id|default('')}) }}
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+
+{% block body %}
+    <h1 style="padding-top: 20px">{{ 'title.question_details'|trans({'%id%': question.id|default('')}) }}: {{ question.id }}</h1>
+    <h2>{{ 'answer_list'|trans }}: {{ answers|length }}</h2>
+    <p>
+        <a href="{{ url('question_index') }}" title="{{ 'action.back_to_list'|trans }}">
+            {{ 'action.back_to_list'|trans }}
+        </a>
+    </p>
+    {% if question is defined and question|length %}
+        <dl class="dl-horizontal">
+        </dl>
+        <div style="text-align: center">
+            <h1>{{  question.title }}</h1>
+
+            <div style="font-size: 10px; text-align: center">
+                <table style="text-align: center; justify-items: center; margin: auto">
+                    <tr>
+                        <td><b>{{ 'label.created_at'|trans }}</b></td>
+                        <td><b>&nbsp{{ 'label.updated_at'|trans }}&nbsp</b></td>
+                        <td><b>{{ 'label.category'|trans }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>{{ question.createdAt|format_date('short') }}</td>
+                        <td>{{ question.updatedAt|format_date('short') }}</td>
+                        <td>{{  question.category.title }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="answers" style="margin-top: 20px;">
+            {% if answers|length > 0 %}
+                {% for answer in answers %}
+                    <div style="border-top: 1px solid #ccc; padding: 5px; display: flex; align-items: center;">
+                        <div style="display: inline-block; width: 150px;">
+                            <h4>{{ answer.author.nickname }}</h4>
+                            <small>{{ answer.createdAt|format_datetime('medium', 'short') }}</small>
+                            <i class="{% if answer.isBest %}fas fa-star{% else %}far fa-star{% endif %}"></i>
+                        </div>
+                        <div style="display: inline-block; width: calc(-300px + 100% - 220px); font-size: 18px">
+                            <p>{{ answer.content }}</p>
+                        </div>
+                        <div style="width: 20%; text-align: right; padding: 3px;">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <div>
+                                    {% if not answer.isBest %}
+                                        <a class="btn btn-outline-success" href="{{ path('mark_best_answer', {'id': answer.id}) }}">Zaznacz jako najlepszą odpowiedź</a>
+                                    {% else %}
+                                        <a class="btn btn-outline-primary" href="{{ path('mark_best_answer', {'id': answer.id}) }}">Odznacz jako najlepszą odpowiedź</a>
+                                    {% endif %}
+                                    <br><br>
+                                    <a class="btn btn-outline-danger" href="{{ url('answer_delete', {id: answer.id}) }}" title="{{ 'answers.action_delete'|trans }}">
+                                        {{ 'answers.action_delete'|trans }}
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div>{{ 'answers.no_answers'|trans }}</div>
+            {% endif %}
+            <p class="button" style="padding-top: 15px">
+                <a href="{{ url('question_answer', {id: question.id}) }}" title="{{ 'action_add_answer'|trans }}">
+                    {{ 'action_add_answer'|trans }}
+                </a>
+            </p>
+        </div>
+    {% else %}
+        <p>
+            {{ 'message.record_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.record_view'|trans }} {{ question.id }}{% endblock %}
+
+{% block body %}
+
+
+
+    {% if question is defined %}
+        <h3>{{ 'label.id'|trans }}: {{ question.id }}</h3>
+        <h3>Tytuł</h3>
+        <p>{{ question.title }}</p>
+        {#        <h3>Komentarz</h3>#}
+        {#        <p>{{ question.answer }}</p>#}
+        <h3>{{ 'label.created_at'|trans }}</h3>
+        <p>{{ question.createdAt|date('Y-m-d') }}</p>
+        <h3>{{ 'label.updated_at'|trans }}</h3>
+        <p>{{ question.updatedAt|date('Y-m-d') }}</p>
+        <h3>{{ 'label.category'|trans }}</h3>
+        <p>{{ question.category.title }}</p>
+        <a href="{{ url('question_index') }}" title="{{ 'action.back_to_list'|trans }}">
+            {{ 'action.back_to_list'|trans }}
+        </a>
+    {% else %}
+        <p>{{ 'message.record_not_exist'|trans }}</p>
+    {%  endif %}
+
+{% endblock %}

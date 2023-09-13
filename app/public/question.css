@@ -1,0 +1,7 @@
+/* questions.css */
+
+/* Stylizacja tabeli z pytaniami */
+table {
+    width: 70%; /* Szerokość tabeli wynosząca 70% strony */
+    margin: 0 auto; /* Wyśrodkowanie tabeli w poziomie */
+}
